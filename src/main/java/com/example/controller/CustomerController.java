@@ -11,12 +11,11 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @RestController
-@RequestMapping(value = "/customer")
 public class CustomerController {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    @GetMapping("/")
+    @GetMapping("/customers")
     public String getCustomer() {
         MongoCollection<Document> collection = this.mongoTemplate.getDb().getCollection("customer");
 
@@ -27,7 +26,7 @@ public class CustomerController {
         return result;
     }
 
-    @PostMapping(value = "/addCustomer", produces = { MediaType.APPLICATION_JSON_VALUE })
+    @PostMapping(value = "/customer", produces = { MediaType.APPLICATION_JSON_VALUE })
     public void addCustomer(@RequestBody String customer) {
         Document doc = Document.parse(customer);
         this.mongoTemplate.insert(doc, "customer");
